@@ -45,6 +45,10 @@ const TOTAL = 2382.3161; // Moved this to state
 const ESTIMATED_DELIVERY = "Nov 24, 2021";
 
 const [data, setData] = useState(lineItems);
+const [subtotal, setSubtotal] = useState(0);
+const [hst, setHst] = useState(0);
+const [shippingFee, setShippingFee] = useState(15); // added flat shipping fee
+const [total, setTotal] = useState(0);
 
 // remove line item function
 const removeLineItem = (lineItemId) => {
@@ -58,6 +62,30 @@ const addLineItem = () => {
   setData(data => [...data, {id: 4, title: "Grey Sofa", price: 499.99,quantity: 1, image:"https://www.cozey.ca/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0277%2F3057%2F5462%2Fproducts%2F2_Single_shot_DARK_GREY_OFF_OFF_SLOPE_17f0f115-11f8-4a78-b412-e9a2fea4748d.png%3Fv%3D1629310667&w=1920&q=75", swatchColor: "#959392", swatchTitle: "Grey"}]
   )
 }
+
+// calculate fees function
+const calculateFees = () => {
+  let subtotal = 0;
+  let hst = 0;
+  let total = 0;
+
+  data.map(item => {
+
+    subtotal += item.price;
+    hst = subtotal * 0.13;
+    total = subtotal + hst + shippingFee;
+
+    // update state 
+    setSubtotal(subtotal);
+    setHst(hst);
+    setTotal(total);
+  })
+}
+
+// load function on page load
+useEffect(() => {
+  calculateFees();
+}, [data]);
 
   return (
      <div className="p-10 max-w-screen-lg mx-auto">
@@ -88,22 +116,22 @@ const addLineItem = () => {
 
         <div className='flex mb-2'>
         <h3>Subtotal</h3>
-        <h3 className='ml-auto'>${SUBTOTAL}</h3>
+        <h3 className='ml-auto'>${subtotal.toFixed(2)}</h3>
       </div>
 
        <div className='flex mb-2'>
         <h3>Taxes (estimated)</h3>
-        <h3 className='ml-auto'>${HST}</h3>
+        <h3 className='ml-auto'>${hst.toFixed(2)}</h3>
       </div>
 
        <div className='flex mb-10'>
         <h3>Shipping</h3>
-        <h3 className='ml-auto'>Free</h3>
+        <h3 className='ml-auto'>{shippingFee}</h3>
       </div>
 
        <div className='flex mb-2'>
         <h3 className='text-purple-900'>Total</h3>
-        <h3 className='ml-auto text-purple-900'>${TOTAL}</h3>
+        <h3 className='ml-auto text-purple-900'>${total.toFixed(2)}</h3>
       </div>
     </div>
   );
