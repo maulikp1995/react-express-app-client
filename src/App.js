@@ -63,10 +63,29 @@ const ESTIMATED_DELIVERY = "Nov 24, 2021";
               <h3 className='text-xs mt-2  md:mt-10 md:text-base'>Estimated Delivery Date: 
                 <span className='text-purple-900 block md:inline'>{item.estimatedDeliveryDate ? item.estimatedDeliveryDate : ESTIMATED_DELIVERY}</span>
               </h3>
-
             </div>
           </div>
         ))}
+      </div>
+
+        <div className='flex mb-2'>
+        <h3>Subtotal</h3>
+        <h3 className='ml-auto'>${SUBTOTAL}</h3>
+      </div>
+
+       <div className='flex mb-2'>
+        <h3>Taxes (estimated)</h3>
+        <h3 className='ml-auto'>${HST}</h3>
+      </div>
+
+       <div className='flex mb-10'>
+        <h3>Shipping</h3>
+        <h3 className='ml-auto'>Free</h3>
+      </div>
+
+       <div className='flex mb-2'>
+        <h3 className='text-purple-900'>Total</h3>
+        <h3 className='ml-auto text-purple-900'>${TOTAL}</h3>
       </div>
     </div>
   );
