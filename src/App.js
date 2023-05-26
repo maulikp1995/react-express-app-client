@@ -2,52 +2,12 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
-//First part given
-const lineItems = [
-  {
-    id: 1,
-    title: "Grey Sofa",
-    price: 499.99,
-    quantity: 1,
-    image:"https://www.cozey.ca/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0277%2F3057%2F5462%2Fproducts%2F2_Single_shot_DARK_GREY_OFF_OFF_SLOPE_17f0f115-11f8-4a78-b412-e9a2fea4748d.png%3Fv%3D1629310667&w=1920&q=75",
-    swatchColor: "#959392",
-    swatchTitle: "Grey"
-  },
-  {
-    id: 2,
-    title: "Blue Sofa",
-    price: 994.99,
-    quantity: 1,
-    image:"https://www.cozey.ca/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0277%2F3057%2F5462%2Fproducts%2F3_Seater_SofaSofa_Ottoman_Off_Arm_Configuration_Two_Arms_Arm_Design_Slope_Chaise_Off_Fabric_Navy_Blue2.png%3Fv%3D1629231450&w=1920&q=75",
-    swatchColor: "#191944",
-    swatchTitle: "Blue"
-  },
-  {
-    id: 3,
-    title: "White Sofa",
-    price: 599.99,
-    quantity: 1,
-    image:"https://www.cozey.ca/_next/image?url=https%3A%2F%2Fcdn.shopify.com%2Fs%2Ffiles%2F1%2F0277%2F3057%2F5462%2Fproducts%2F2_Single_shot_IVORY_OFF_OFF_SLOPE_5379af1f-9318-4e37-b514-962d33d1ce64.png%3Fv%3D1629231450&w=1920&q=75",
-    swatchColor: "#F8F1EC",
-    swatchTitle: "White"
-  },
-];
-
-// Styling variables
-const BLUE = "#172162"; //"rgb(23, 33, 98)";
-const LIGHT_GREY = "#6e7484";
-const BLACK = "#000000";
-
-
-const SUBTOTAL = 2094.97; // Moved this to state
-const HST = 272.3461;  // Moved this to state
-const TOTAL = 2382.3161; // Moved this to state
 const ESTIMATED_DELIVERY = "Nov 24, 2021";
 
-const [data, setData] = useState(lineItems);
+const [data, setData] = useState([]);
 const [subtotal, setSubtotal] = useState(0);
 const [hst, setHst] = useState(0);
-const [shippingFee, setShippingFee] = useState(15); // added flat shipping fee
+const [shippingFee] = useState(15); // added flat shipping fee
 const [total, setTotal] = useState(0);
 
 // remove line item function
@@ -82,10 +42,25 @@ const calculateFees = () => {
   })
 }
 
+// fetch data useEffect
+useEffect(() => {
+
+  fetch('/api').then(res => res.json()).then(data => {
+    console.log(data.lineItems);
+    setData(data.lineItems);
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+
+}, []);
+
 // load function on page load
 useEffect(() => {
   calculateFees();
 }, [data]);
+
+console.log(data);
 
   return (
      <div className="p-10 max-w-screen-lg mx-auto">
@@ -126,7 +101,7 @@ useEffect(() => {
 
        <div className='flex mb-10'>
         <h3>Shipping</h3>
-        <h3 className='ml-auto'>{shippingFee}</h3>
+        <h3 className='ml-auto'>${shippingFee}</h3>
       </div>
 
        <div className='flex mb-2'>
