@@ -42,6 +42,15 @@ const calculateFees = () => {
   })
 }
 
+// handle postal code input post request
+const handleChange = async (e) =>{
+  console.log(e.target.value);
+
+  // get the line item ids
+  // POST request with payload equal to the postal code and the line item ids
+
+}
+
 // fetch data useEffect
 useEffect(() => {
 
@@ -107,6 +116,13 @@ console.log(data);
        <div className='flex mb-2'>
         <h3 className='text-purple-900'>Total</h3>
         <h3 className='ml-auto text-purple-900'>${total.toFixed(2)}</h3>
+      </div>
+      
+      <div className='flex mb-2'>
+        <h3 className=''>Postal Code</h3>
+        <h3 className='ml-auto text-purple-900'>
+          <input className='border rounded border-purple-900 px-2 w-20' onChange={handleChange}/>
+        </h3>
       </div>
     </div>
   );
