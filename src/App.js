@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
+
 function App() {
 
-    //First part given
+//First part given
 const lineItems = [
   {
     id: 1,
@@ -42,12 +44,14 @@ const HST = 272.3461;  // Moved this to state
 const TOTAL = 2382.3161; // Moved this to state
 const ESTIMATED_DELIVERY = "Nov 24, 2021";
 
+const [data, setData] = useState(lineItems);
+
   return (
      <div className="p-10 max-w-screen-lg mx-auto">
       <h2 className="text-5xl text-purple-900 mb-10 inline-block">Your Cart</h2>
 
       <div>
-        {lineItems.map((item, i) => (
+        {data.map((item, i) => (
           <div className='flex gap-8 mb-10' key={i}>
             <img className='w-32 md:w-80' src={item.image} alt={item.title} />
 
