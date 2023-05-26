@@ -46,6 +46,13 @@ const ESTIMATED_DELIVERY = "Nov 24, 2021";
 
 const [data, setData] = useState(lineItems);
 
+// remove line item function
+const removeLineItem = (lineItemId) => {
+  const newLineItems = data.filter(item => item.id !== lineItemId);
+  console.log(newLineItems);
+  setData(newLineItems);
+}
+
   return (
      <div className="p-10 max-w-screen-lg mx-auto">
       <h2 className="text-5xl text-purple-900 mb-10 inline-block">Your Cart</h2>
@@ -67,6 +74,7 @@ const [data, setData] = useState(lineItems);
               <h3 className='text-xs mt-2  md:mt-10 md:text-base'>Estimated Delivery Date: 
                 <span className='text-purple-900 block md:inline'>{item.estimatedDeliveryDate ? item.estimatedDeliveryDate : ESTIMATED_DELIVERY}</span>
               </h3>
+                <button className='mt-3 font-bold underline' id="btn" onClick={() => removeLineItem(item.id)}>Remove</button>
             </div>
           </div>
         ))}
