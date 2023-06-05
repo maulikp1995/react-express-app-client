@@ -28,5 +28,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/c
 
 ## Bugs
 
-Add Item functionality - remove this.
-Remove functionality - Last item fees still present in price summary.
+1. Add Item functionality - remove this.
+2. Remove functionality - Last item fees still present in price summary.
+3. Hook up Dummy Shopify site using storefront API
